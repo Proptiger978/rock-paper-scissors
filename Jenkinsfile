@@ -19,7 +19,7 @@ pipeline {
         
         
         stage ('Create docker image from Dockerfile ')
- {steps { sh 'docker build -t abhoyar9/pravin26' }}
+ {steps { sh 'docker build -t abhoyar9/pravin$BUILD_NUMBER .' }}
  
  
 stage('Docker Login') {
@@ -34,9 +34,7 @@ stage('Docker Login') {
 
  stage ('Push doccker image ')
   { steps { 
-      sh 'docker push abhoyar9/pravin27'
+      sh 'docker push abhoyar9/pravin$BUILD_NUMBER'
 }}}
        
     } 
-    
-
