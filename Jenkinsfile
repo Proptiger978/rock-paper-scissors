@@ -20,7 +20,7 @@ pipeline {
         
         stage ('Create docker image from Dockerfile ')
  {steps { sh 'docker build -t abhoyar9/pravin$BUILD_NUMBER .' 
-         { sh 'docker build -t abhoyar9/pravin .' }
+         { sh 'docker build -t abhoyar9/pravin:latest .' }
         }
  }
  
@@ -38,7 +38,7 @@ stage('Docker Login') {
  stage ('Push doccker image ')
   { steps { 
       sh 'docker push abhoyar9/pravin$BUILD_NUMBER'
-      sh 'docker push abhoyar9/pravin'
+      sh 'docker push abhoyar9/pravin:latest'
 }}}
        
     } 
