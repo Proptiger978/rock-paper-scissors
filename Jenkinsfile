@@ -1,43 +1,42 @@
-node {
-   
-   //Declare a global variable for mvnHome
+pipeline {
+    agent any
 
-   stage('Version') { 
-
-	  //build job: 'Version Check'
-          
-   }
-
-   stage('Environment') {
-       
-       // build job: 'Enviro-Check'
-       
-   }
-
-   stage('Document') {
-   
-	  //build job: 'Generate-JavaDoc', parameters: [booleanParam(name: 'generate_javadoc', value: false), stringParam(name: 'javadoc_location', value: 'C:\\_javadoc00')]
-
-   }
-
-   stage('Compile'){
-  
-       // build job: 'Compile-RPS'
-   }
-   
-   stage('Acceptance') {
-       
-         //def response = input message: 'UAT Tests',   parameters: [choice(choices: 'Pass\nFail', description: 'Proceed or Abort?', name: 'Pass or Fail?')]
-
-   }
-   
-   stage('Conclusion') {
-      def response = input message: 'Whatcha think?', parameters: [choice(choices: 'Yes\nNo', description: 'Proceed or Abort?', name: 'Wasn\'t that cool?')]
+    stages {
         
-      if (response=="Yes") {
-         echo "I agree!"
-      } else {
-         echo "You are hard to please."
-      }
-   }
+        stage('Git Clone') {
+            steps {
+                git 'https://github.com/amitbhoyar1988/rock-paper-scissors.git'
+            }
+        }
+        
+    stage('COMplie') {
+            steps {
+    withMaven(jdk: 'LocalJDK', maven: 'LocalMVN') {
+    sh 'mvn clean package'
 }
+            }
+        }
+        
+        
+        stage ('Create docker image from Dockerfile ')
+ {steps { sh 'docker build -t abhoyar9/pravin26 .' }}
+ 
+ 
+stage('Docker Login') {
+            steps {
+                withCredentials ([string(credentialsId: 'dockerhub', variable: 'Password')]) {
+                            sh 'docker login -u abhoyar9 -p ${Password}'
+
+            }
+
+        }}
+
+
+ stage ('Push doccker image ')
+  { steps { 
+      sh 'docker push abhoyar9/pravin26:latest'
+}}}
+       
+    } 
+    
+
