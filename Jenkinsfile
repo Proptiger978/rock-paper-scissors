@@ -28,7 +28,7 @@ pipeline {
 stage('Docker Login') {
             steps {
                 withCredentials ([string(credentialsId: 'dockerhub', variable: 'Password')]) {
-                            sh 'docker login -u proptiger978 -p ${Password}'
+                            sh 'docker login -u abhoyar9 -p ${Password}'
 
             }
 
@@ -37,8 +37,8 @@ stage('Docker Login') {
 
  stage ('Push doccker image ')
   { steps { 
-      sh 'docker push proptiger978/pkw0301/oct-dockerci$BUILD_NUMBER'
-      sh 'docker push proptiger978/pkw0301/oct-dockerci:latest'
+       sh 'docker push abhoyar9/pravin$BUILD_NUMBER'
+       sh 'docker push abhoyar9/pravin:latest'
 }}}
        
     } 
