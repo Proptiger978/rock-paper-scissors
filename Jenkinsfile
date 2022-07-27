@@ -41,4 +41,4 @@ stage('Docker Login') {
        sh 'docker push proptiger978/pravin:latest'
 }}}
        
-    } 
+    }
