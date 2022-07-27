@@ -5,7 +5,7 @@ pipeline {
         
         stage('Git Clone') {
             steps {
-                git 'https://github.com/amitbhoyar1988/rock-paper-scissors.git'
+                git 'https://github.com/Proptiger978/rock-paper-scissors.git'
             }
         }
         
@@ -19,8 +19,8 @@ pipeline {
         
         
         stage ('Create docker image from Dockerfile ')
- {steps { sh 'docker build -t abhoyar9/pravin$BUILD_NUMBER .' 
-         { sh 'docker build -t abhoyar9/pravin:latest .' }
+ {steps { sh 'docker build -t proptiger978/pravin$BUILD_NUMBER .' 
+         { sh 'docker build -t proptiger978/pravin:latest .' }
         }
  }
  
@@ -28,7 +28,7 @@ pipeline {
 stage('Docker Login') {
             steps {
                 withCredentials ([string(credentialsId: 'dockerhub', variable: 'Password')]) {
-                            sh 'docker login -u abhoyar9 -p ${Password}'
+                            sh 'docker login -u proptiger978 -p ${Password}'
 
             }
 
@@ -37,8 +37,8 @@ stage('Docker Login') {
 
  stage ('Push doccker image ')
   { steps { 
-       sh 'docker push abhoyar9/pravin$BUILD_NUMBER'
-       sh 'docker push abhoyar9/pravin:latest'
+       sh 'docker push proptiger978/pravin$BUILD_NUMBER'
+       sh 'docker push proptiger978/pravin:latest'
 }}}
        
     } 
